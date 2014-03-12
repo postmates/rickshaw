@@ -391,7 +391,8 @@ Rickshaw.Graph = function(args) {
 		offset: 'zero',
 		min: undefined,
 		max: undefined,
-		preserve: false
+		preserve: false,
+		xRange: undefined // override this with [x0, x1] to provide custom graph domain
 	};
 
 	Rickshaw.keys(this.defaults).forEach( function(k) {
@@ -481,6 +482,7 @@ Rickshaw.Graph = function(args) {
 	this.discoverRange = function() {
 
 		var domain = this.renderer.domain();
+		domain.x = this.xRange || domain.x;
 
 		this.x = d3.scale.linear().domain(domain.x).range([0, this.width]);
 
